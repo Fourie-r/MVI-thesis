@@ -1,0 +1,30 @@
+@import '../../../styles/variables.scss';
+
+.navbar {
+  background-color: #428bca;
+  display: flex;
+  flex-direction: row;
+  color: white;
+  .brand {
+    padding-left: 1em;
+    font-size: 1.5em;
+  }
+  ul {
+    display: flex;
+    flex-direction: row;
+    padding-right: 80px;
+    li {
+      margin: 0px 30px;
+      font-size: 1.2em;
+      cursor: pointer;
+      padding: 5px 10px;
+      a {
+        color: white;
+        text-decoration: none;
+      }
+    }
+    li:hover {
+      border-bottom: 2px solid #ffbf00;
+    }
+  }
+}

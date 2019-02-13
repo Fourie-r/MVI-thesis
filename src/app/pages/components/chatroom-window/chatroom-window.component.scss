@@ -1,0 +1,18 @@
+.message-wrapper {
+  overflow-y: scroll;
+}
+
+.select-room {
+  .select-room-message {
+    width: 50%;
+    height: 5%;
+    margin-bottom: 20%;
+    padding: 35px;
+    border: 2px solid goldenrod;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    display: flex;
+    text-align: center;
+  }
+}

@@ -1,0 +1,81 @@
+@import '../../../../styles/variables.scss';
+
+.chatroom-list {
+  border-right: 2px solid $light-grey;
+  overflow-y: scroll;
+
+  .chatroom-list-item {
+    border-bottom: 1px solid $light-grey;
+    padding: 1em;
+    height: auto;
+    width: 90%;
+    margin-top: 20px;
+    border-radius: 1px;
+    align-items:flex-start;
+    background-color: $light-grey;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    color: #111111;
+    border-radius: 8px;
+    transition: ease-in 0.2s;
+    cursor: pointer;
+  }
+
+
+  .chatroom-list-item:hover {
+    background-color:grey;
+    color: #ddd;
+    transition: ease-in 0.1s;
+  }
+
+  .online{
+    background-color: #0FA;
+}
+
+.busy{
+    background-color: #FB0;
+}
+
+.offline{
+    background-color: #888;
+}
+
+.status{
+    border: 1px solid black;
+    display: inline-block;
+    min-width: 10px;
+    min-height: 10px;
+    border-radius: 50%;
+    margin: 10px 12px 0px 10px;
+}
+
+.unread {
+  background-color: lightcoral;
+}
+
+.startChat_button {
+  width: 40%;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 10px 20px;
+  margin-top: 20px;
+  margin-right: 10px;
+  display: flex;
+  align-items: stretch;
+  white-space: nowrap;
+
+  span {
+    font-size: 0.7em;
+  }
+  align-self: flex-end;
+
+}
+.startChat_button:hover {
+
+    background-color: darken( #A098A5, 10%);
+
+  span {
+  color: white;
+  }
+}
+}

@@ -1,0 +1,23 @@
+@import '../styles/variables.scss';
+
+.alert-wrapper {
+  position: relative;
+
+  alert {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+  }
+}
+.example-container {
+  height: calc(100vh - 80px) !important;
+  /*   position: absolute;
+  top:0;
+  left: 0;
+  margin-left: -800px; */
+}
+
+mat-drawer {
+
+  width: 800px;
+}

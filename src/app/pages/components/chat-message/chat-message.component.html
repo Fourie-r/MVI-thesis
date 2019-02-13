@@ -1,0 +1,18 @@
+<div class="chat-message" [ngClass]="{ isOwnMessage: isOwnMessage }">
+  <div class="image-wrapper">
+    <img [src]="message.sender.photoUrl" class="rounded-circle" />
+  </div>
+  <div class="buble">
+    <div class="name-row">
+      <div class="name">
+        {{ message.sender.firstName }} {{ message.sender.lastName }}
+      </div>
+      <div class="timestamp">{{
+        message.createdAt.toDate() | date: 'medium'
+      }}</div>
+    </div>
+    <div class="message">
+      {{ message.message }}
+    </div>
+  </div>
+</div>

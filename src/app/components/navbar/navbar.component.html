@@ -1,0 +1,18 @@
+<nav class="navbar">
+  <span class="brand">ChatApp</span>
+  <ul *ngIf="currentUser; else loggedOut">
+    <li class="nitem"><a (click)="toggle()" class="nlink">Chat</a></li>
+    <li class="nitem"><a (click)="logout()" class="nlink">Logout</a></li>
+  </ul>
+</nav>
+
+<ng-template #loggedOut>
+  <ul>
+    <li class="nitem">
+      <a [routerLink]="['/login']" routerLinkActive="active">Login</a>
+    </li>
+    <li class="nitem">
+      <a [routerLink]="['/signup']" routerLinkActive="active">Sign Up</a>
+    </li>
+  </ul>
+</ng-template>
