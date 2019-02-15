@@ -11,6 +11,7 @@ import { ChatroomService } from 'src/app/services/chatroom.service';
 export class NavbarComponent implements OnInit {
 
   public currentUser: any = null;
+  public backlog = false;
   @Input() drawer;
   constructor(public authService: AuthService, private chatroomService: ChatroomService) { }
 

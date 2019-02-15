@@ -23,6 +23,8 @@
     "@angular/platform-browser": "^6.0.2",
     "@angular/platform-browser-dynamic": "^6.0.2",
     "@angular/router": "^6.0.2",
+    "@ngrx/effects": "^6.0.0",
+    "@ngrx/store": "^6.0.0",
     "@progress/kendo-angular-buttons": "^4.1.3",
     "@progress/kendo-angular-charts": "^3.3.3",
     "@progress/kendo-angular-dateinputs": "^3.4.4",

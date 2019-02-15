@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreModule, MetaReducer } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 
 import { NgModule } from '@angular/core';
@@ -60,6 +62,10 @@ import { TaskContributionService } from './services/task-contribution.service';
 import { BacklogComponent } from './pages/backlog/backlog-component';
 import { MaterialModule } from './shared/materaial-components/matrial.component';
 import { UserListComponent } from './pages/components/user-list/user-list.component';
+import { effects } from './store/effects';
+import { reducers } from './store';
+
+export const metaReducers: MetaReducer<any>[] = [];
 
 
 @NgModule({
@@ -87,6 +93,9 @@ import { UserListComponent } from './pages/components/user-list/user-list.compon
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    StoreModule.forRoot({}),
+    StoreModule.forFeature('modules', reducers),
+    EffectsModule.forRoot(effects),
     AlertModule.forRoot(),
     ReactiveFormsModule,
     FormsModule,

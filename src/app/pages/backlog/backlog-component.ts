@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TaskModel } from 'src/app/shared/models/tasks.model';
 import { TaskService } from 'src/app/services/task.service';
 import { Subscription } from 'rxjs';
+import * as fromStore from '../../store';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-backlog-component',
@@ -12,12 +14,14 @@ export class BacklogComponent implements OnInit, OnDestroy {
   backlogTasks: TaskModel[] = [];
   subscriptions: Subscription[] = [];
   tasks: TaskModel[] = [];
-  constructor(private tasKService: TaskService) {}
+  constructor(private tasKService: TaskService, private store: Store<fromStore.ModulesState>) {}
 
   ngOnInit() {
+
+
+    this.store.dispatch(new fromStore.GetBacklogTasks());
     this.subscriptions.push(
-      this.tasKService
-        .getBacklogTasks()
+      this.store.select(fromStore.getBacklogArr())
         .subscribe((tasks: TaskModel[]) => {
           this.tasks = tasks;
           this.backlogTasks = [];
