@@ -87,7 +87,7 @@
         <div class="popup-wrapper">
             <kendo-dialog title="Task Details" *ngIf="opened" (close)="close('cancel')">
                 <div class="main-body">
-                    <h2>{{seletedTaskTitle}}</h2>
+                    <textarea class="textarea" kendoTextArea  [(ngModel)]="seletedTaskTitle" ></textarea>
                     <p>Start :{{selectedTaskStartDate.toDate() | date}} - End: {{selectedTaskEndDate.toDate() | date}}</p>
                     <p class="people-name" style="color: #33c8af">Responsible People</p>
                     <span *ngFor="let people of peoples">
@@ -101,7 +101,7 @@
                 <kendo-dialog-actions>
                     <button kendoButton (click)="deleteTask()" title="Delete task"><span class="k-icon k-i-x-circle k-icon-64"></span>
                     </button>
-                    <button kendoButton (click)="close('love')" primary="true"><span class="k-icon k-i-heart k-icon-64"></span>
+                    <button kendoButton (click)="updateTitle()" primary="true"><span class="k-icon k-i-heart k-icon-64"></span>
                     </button>
                 </kendo-dialog-actions>
             </kendo-dialog>

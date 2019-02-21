@@ -25,7 +25,7 @@ export class PeoplesComponent implements OnInit {
   peoples: PeoplesModel[] = [];
   errorMessage;
   public opened = false;
-  public name: string;
+  public firstName: string;
   public designation: string;
   public selectedName: string;
 
@@ -77,9 +77,9 @@ export class PeoplesComponent implements OnInit {
   addNewMember() {
     const data = {
       id: this.peoples.length + 1,
-      name: this.name,
+      firstName: this.firstName,
       designation: this.designation,
-      photo:
+      photoUrl:
         'https://cdn1.iconfinder.com/data/icons/unique-round-blue/93/user-512.png'
     };
 
@@ -93,7 +93,7 @@ export class PeoplesComponent implements OnInit {
       peoples => {
         // Emit list event
         this.peoples.push(data);
-        this.name = '';
+        this.firstName = '';
         this.designation = '';
         this.opened = false;
         this.emitter.emit('Broadcast!');

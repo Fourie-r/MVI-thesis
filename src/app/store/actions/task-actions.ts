@@ -19,6 +19,10 @@ export const MOVE_TO_BACKLOG = 'TASKS move to backlog';
 export const MOVE_TO_BACKLOG_FAIL = 'TASKS move to backlog fail';
 export const MOVE_TO_BACKLOG_SUCCESS = 'TASKS move to backlog success';
 
+export const MOVE_TASK_TO_SPRINT = 'TASKS move task to sprint';
+export const MOVE_TASK_TO_SPRINT_FAIL = 'TASKS move task to sprint fail';
+export const MOVE_TASK_TO_SPRINT_SUCCESS = 'TASKS move task to sprint success';
+
 export const CREATE_TASK = 'TASKS create a task';
 export const CREATE_TASK_FAIL = 'TASKS create a task fail';
 export const CREATE_TASK_SUCCESS = 'TASKS create a task success';
@@ -76,11 +80,12 @@ export class UpdateTask implements Action {
 
 export class MoveToBacklog implements Action {
   readonly type = MOVE_TO_BACKLOG;
+  constructor(public payload: TaskModel) {}
 }
 
 export class MoveToBacklogSuccess implements Action {
   readonly type = MOVE_TO_BACKLOG_SUCCESS;
-  constructor(public payload: string) {}
+  constructor(public payload: TaskModel) {}
 }
 
 export class MoveToBacklogFail implements Action {
@@ -90,6 +95,7 @@ export class MoveToBacklogFail implements Action {
 
 export class CreateTask implements Action {
   readonly type = CREATE_TASK;
+  constructor(public payload: TaskModel) {}
 }
 
 export class CreateTaskSuccess implements Action {
@@ -116,6 +122,24 @@ export class RemoveTaskFromBacklogSuccess implements Action {
   constructor(public payload: string) {}
 }
 
+export class MoveTaskToSprint implements Action {
+
+  readonly type = MOVE_TASK_TO_SPRINT;
+  constructor(public payload: TaskModel) {}
+}
+
+export class MoveTaskToSprintFail implements Action {
+
+  readonly type = MOVE_TASK_TO_SPRINT_FAIL;
+  constructor(public payload: any) {}
+}
+
+export class MoveTaskToSprintSuccess implements Action {
+
+  readonly type = MOVE_TASK_TO_SPRINT_SUCCESS;
+  constructor(public payload: TaskModel) {}
+}
+
 export type TaskActions =
   | GetTasks
   | GetTasksSuccess
@@ -135,4 +159,7 @@ export type TaskActions =
   | CreateTaskSuccess
   | RemoveTaskFromBacklog
   | RemoveTaskFromBacklogFail
+  | MoveTaskToSprint
+  | MoveTaskToSprintFail
+  | MoveTaskToSprintSuccess
   | RemoveTaskFromBacklogSuccess;

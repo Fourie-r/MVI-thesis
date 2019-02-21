@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, Input, ViewContainerRef, OnDestroy } from '@angular/core';
 import { EmitterService } from './../../services/emitter.service';
 
 import { TaskModel } from './../../shared/models/tasks.model';
@@ -7,19 +7,23 @@ import { PeoplesService } from './../../services/peoples.service';
 import { User } from 'src/app/classes/user.model';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../store';
+import { first } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss']
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit, OnDestroy {
   tasks: TaskModel[] = [];
   peoples: User[] = [];
   emitter = EmitterService.get('PeoplesChannel');
   listTeamOne: TaskModel[] = [];
   listTeamTwo: TaskModel[] = [];
   public opened = false;
+
+  private taskId = '';
 
   public pieData: any = [
     { category: 'In Progress', value: 2 },
@@ -32,6 +36,7 @@ export class BoardComponent implements OnInit {
   public selectedTaskStartDate: string;
   public selectedTaskEndDate: string;
   public seletedTaskPeople: string;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     public taskService: TaskService,
@@ -54,7 +59,7 @@ export class BoardComponent implements OnInit {
   // Get all tasks
   getAllTasks() {
     // Get all tasks
-    this.store.select(fromStore.getTasksArr()).subscribe(
+    this.subscriptions.push(this.store.select(fromStore.getTasksArr()).pipe().subscribe(
       (tasks: TaskModel[]) => {
         this.tasks = [];
         this.listTeamOne = [];
@@ -85,7 +90,7 @@ export class BoardComponent implements OnInit {
         // Log errors if any
         console.log(err);
       }
-    );
+    ));
   }
 
   // Get all peoples
@@ -137,18 +142,21 @@ export class BoardComponent implements OnInit {
     this.selectedTaskEndDate = task.endDate;
     this.seletedTaskPeople = task.people;
     this.selectedTaskData = data;
+    this.taskId = task.id;
   }
   public close() {
     this.opened = false;
   }
 
+  updateTitle() {
+    this.taskService.upodateTaskDescription( this.taskId, this.seletedTaskTitle);
+    this.close();
+  }
+
   saveToBacklog() {
     this.deleteTask();
-    this.taskService.db
-      .collection('backlog')
-      .doc(this.selectedTask.id)
-      .set(this.selectedTask);
-
+    // this.taskService.moveToBacklog(this.selectedTask);
+    this.store.dispatch(new fromStore.MoveToBacklog(this.selectedTask));
     this.close();
   }
 
@@ -156,5 +164,9 @@ export class BoardComponent implements OnInit {
     console.log(this.selectedTaskData);
     this.taskService.removeTask(this.selectedTask.id);
     this.close();
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 }

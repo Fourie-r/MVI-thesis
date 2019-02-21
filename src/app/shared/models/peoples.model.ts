@@ -1,6 +1,10 @@
 export class PeoplesModel {
-  id: number;
-  name: string;
-  photo: string;
-  designation: string;
+  id?: number;
+  firstName?: string;
+  lastName?: string;
+  photoUrl?: string;
+  status?: string;
+  email?: string;
+  designation?: string;
+  currentChatroom?: string;
 }

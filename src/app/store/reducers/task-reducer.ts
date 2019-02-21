@@ -29,7 +29,7 @@ export function reducer(
       return {...state};
     }
 
-    /* case taskActions.CREATE_TASK:
+     case taskActions.CREATE_TASK:
     case taskActions.GET_BACKLOG_TASKS:
     case taskActions.MOVE_TO_BACKLOG:
     case taskActions.REMOVE_TASK:
@@ -37,7 +37,7 @@ export function reducer(
     case taskActions.GET_TASKS: {
       console.log(action.type);
       return {...state};
-    } */
+    }
 
     case taskActions.GET_TASKS_SUCCESS: {
       console.log('Reducer TAsks action success');
@@ -62,6 +62,34 @@ export function reducer(
 
       return newState;
     }
+
+    case taskActions.MOVE_TO_BACKLOG_SUCCESS: {
+
+      const newState = {...state};
+      newState.tasks.forEach(task => {
+        if ( task.id === action.payload.id) {
+          newState.backlog.push(task);
+        }
+      });
+      newState.tasks = newState.tasks.filter(task => task.id !== action.payload.id);
+      console.log(newState);
+      return newState;
+    }
+
+    case taskActions.MOVE_TASK_TO_SPRINT: {
+
+      const newState = {...state};
+      const backlogs = state.backlog;
+      newState.backlog.forEach(task => {
+        if ( task.id === action.payload.id) {
+          newState.tasks.push(task);
+        }
+      });
+      newState.backlog = newState.backlog.filter(task => task.id !== action.payload.id);
+      console.log(newState);
+      return newState;
+    }
+
 
 
 

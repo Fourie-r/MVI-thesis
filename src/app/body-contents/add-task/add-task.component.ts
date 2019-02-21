@@ -11,6 +11,8 @@ import { SkillsService } from './../../services/skills.service';
 import { TaskModel } from './../../shared/models/tasks.model';
 import { TaskService } from './../../services/task.service';
 import { User } from 'src/app/classes/user.model';
+import { Store } from '@ngrx/store';
+import * as fromStore from '../../store';
 
 
 @Component({
@@ -37,7 +39,7 @@ export class AddTaskComponent implements OnInit {
     public peoplesService: PeoplesService,
     public skillsService: SkillsService,
     public taskService: TaskService,
-    vcr: ViewContainerRef) {
+    private store: Store<fromStore.ModulesState>) {
     // this.toastr.setRootViewContainerRef(vcr);
   }
 
@@ -99,6 +101,7 @@ export class AddTaskComponent implements OnInit {
     this.startDate = null;
     this.endDate = null;
 
-    this.taskService.addTasks(taskObject);
+    // this.taskService.addTasks(taskObject);
+    this.store.dispatch(new fromStore.CreateTask(taskObject));
   }
 }

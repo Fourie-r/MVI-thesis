@@ -33,6 +33,7 @@ export class TaskService {
 
   }
 
+  // when a task is bing dragged back to the ToDo column
   updateTasks(id: string) {
     this.db
         .doc(`tasks/${id}`)
@@ -55,6 +56,13 @@ export class TaskService {
       .catch(err => console.log(err));
   }
 
+  upodateTaskDescription(id: string, text: string) {
+
+    this.db.doc(`tasks/${id}`)
+    .update({title: text})
+    .catch(err => console.log(err));
+  }
+
   addTasksInCompleted(id: string) {
     /* console.log(body);
     this.removeTasksInProgress(body.id);
@@ -74,7 +82,16 @@ export class TaskService {
   moveToSprint(body: TaskModel) {
     this.removeTaskInBacklog(body.id);
     body.destination = 'ToDo';
-    this.addTasks(body);
+    return this.addTasks(body);
+  }
+
+  moveToBacklog(selectedTask) {
+
+    return this.db
+      .collection('backlog')
+      .doc(selectedTask.id)
+      .set(selectedTask);
+
   }
 
   removeTask(id: string) {

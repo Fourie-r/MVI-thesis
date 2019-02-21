@@ -54,7 +54,8 @@ export class BacklogComponent implements OnInit, OnDestroy {
 
   moveToSprint(index: number) {
 
-    this.tasKService.moveToSprint(this.tasks[index]);
+    // this.tasKService.moveToSprint(this.tasks[index]);
+    this.store.dispatch(new fromStore.MoveTaskToSprint(this.tasks[index]));
   }
 
   ngOnDestroy() {
