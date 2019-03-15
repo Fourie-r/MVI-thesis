@@ -43,7 +43,7 @@ export class GetTasksFail implements Action {
 
 export class GetTasksSuccess implements Action {
   readonly type = GET_TASKS_SUCCESS;
-  constructor(public payload: TaskModel[]) {}
+  constructor(public payload: TaskModel[]) { }
 }
 
 export class GetBacklogTasks implements Action {

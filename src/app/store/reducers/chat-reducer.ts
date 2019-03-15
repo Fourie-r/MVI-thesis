@@ -8,3 +8,18 @@ export interface ChatState {
   currentChatroom: string;
 }
 
+export const  innitialState: ChatState = {
+
+  chatrooms: [],
+  currentChatroom: ''
+};
+
+export function reducer(state: ChatState = innitialState, action: chatActions.ChatActions): ChatState {
+
+  switch(action.type) {
+
+    default: {
+      return state;
+    }
+  }
+}
