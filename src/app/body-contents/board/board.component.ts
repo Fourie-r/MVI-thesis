@@ -1,4 +1,10 @@
-import { Component, OnInit, Input, ViewContainerRef, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewContainerRef,
+  OnDestroy
+} from '@angular/core';
 import { EmitterService } from './../../services/emitter.service';
 
 import { TaskModel } from './../../shared/models/tasks.model';
@@ -44,6 +50,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     private store: Store<fromStore.ModulesState>
   ) {}
 
+  // init Lifecycle hook
   ngOnInit() {
     this.getAllPeople();
     this.store.dispatch(new fromStore.GetTasks());
@@ -59,38 +66,43 @@ export class BoardComponent implements OnInit, OnDestroy {
   // Get all tasks
   getAllTasks() {
     // Get all tasks
-    this.subscriptions.push(this.store.select(fromStore.getTasksArr()).pipe().subscribe(
-      (tasks: TaskModel[]) => {
-        this.tasks = [];
-        this.listTeamOne = [];
-        this.listTeamTwo = [];
-        console.log(tasks);
-        tasks.forEach(task => {
-          if (task.destination === 'ToDo') {
-            this.tasks.push(task);
-          }
+    this.subscriptions.push(
+      this.store
+        .select(fromStore.getTasksArr())
+        .pipe()
+        .subscribe(
+          (tasks: TaskModel[]) => {
+            this.tasks = [];
+            this.listTeamOne = [];
+            this.listTeamTwo = [];
+            console.log(tasks);
+            tasks.forEach(task => {
+              if (task.destination === 'ToDo') {
+                this.tasks.push(task);
+              }
 
-          if (task.destination === 'Progress') {
-            this.listTeamOne.push(task);
-          }
+              if (task.destination === 'Progress') {
+                this.listTeamOne.push(task);
+              }
 
-          if (task.destination === 'Completed') {
-            this.listTeamTwo.push(task);
-          }
-        });
-        this.pieData[0].value = this.listTeamOne.length;
-        this.pieData[1].value = this.listTeamTwo.length;
+              if (task.destination === 'Completed') {
+                this.listTeamTwo.push(task);
+              }
+            });
+            this.pieData[0].value = this.listTeamOne.length;
+            this.pieData[1].value = this.listTeamTwo.length;
 
-        this.pieData = [
-          { category: 'In Progress', value: this.listTeamOne.length },
-          { category: 'Completed', value: this.listTeamTwo.length }
-        ];
-      },
-      err => {
-        // Log errors if any
-        console.log(err);
-      }
-    ));
+            this.pieData = [
+              { category: 'In Progress', value: this.listTeamOne.length },
+              { category: 'Completed', value: this.listTeamTwo.length }
+            ];
+          },
+          err => {
+            // Log errors if any
+            console.log(err);
+          }
+        )
+    );
   }
 
   // Get all peoples
@@ -110,18 +122,20 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   // Drop on success
   addTo(event: any, item, data) {
-    console.log(item);
-    console.log(data);
     if (data === 'ToDo') {
       // this.toastr.success('Task ' + item.title + ' added in To Do board!');
-      this.taskService.updateTasks(item.id);
+      this.taskService.updateTasks(item.id).catch(err => console.log(err));
     }
     if (data === 'Progress') {
-      this.taskService.addTasksInProgress(item.id);
+      this.taskService
+        .addTasksInProgress(item.id)
+        .catch(err => console.log(err));
     }
 
     if (data === 'Completed') {
-      this.taskService.addTasksInCompleted(item.id);
+      this.taskService
+        .addTasksInCompleted(item.id)
+        .catch(err => console.log(err));
     }
     this.pieData[0].value = this.listTeamOne.length;
     this.pieData[1].value = this.listTeamTwo.length;
@@ -144,15 +158,19 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.selectedTaskData = data;
     this.taskId = task.id;
   }
+
+  // close the edit task window
   public close() {
     this.opened = false;
   }
 
+  // updates content of the ticket
   updateTitle() {
-    this.taskService.upodateTaskDescription( this.taskId, this.seletedTaskTitle);
+    this.taskService.upodateTaskDescription(this.taskId, this.seletedTaskTitle);
     this.close();
   }
 
+  // saves ticket to backlog
   saveToBacklog() {
     this.deleteTask();
     // this.taskService.moveToBacklog(this.selectedTask);
@@ -160,6 +178,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.close();
   }
 
+  // removes task
   deleteTask() {
     console.log(this.selectedTaskData);
     this.taskService.removeTask(this.selectedTask.id);

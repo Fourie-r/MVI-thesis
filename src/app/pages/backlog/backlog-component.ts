@@ -18,7 +18,7 @@ export class BacklogComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-
+  // creates a formated date and backlog object from task
     this.store.dispatch(new fromStore.GetBacklogTasks());
     this.subscriptions.push(
       this.store.select(fromStore.getBacklogArr())
@@ -51,10 +51,9 @@ export class BacklogComponent implements OnInit, OnDestroy {
     );
   }
 
-
+ // transfer ticket from backlog to board component
   moveToSprint(index: number) {
 
-    // this.tasKService.moveToSprint(this.tasks[index]);
     this.store.dispatch(new fromStore.MoveTaskToSprint(this.tasks[index]));
   }
 

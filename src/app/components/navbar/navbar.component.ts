@@ -39,6 +39,8 @@ export class NavbarComponent implements OnInit {
     this.chatroomService.setCurrentChatroom('');
     this.authService.logout();
   }
+
+  // togles the chat window
   toggle() {
     this.drawer.toggle();
     this.chatroomService.chatrooms = this.chatroomService.getChatrooms();

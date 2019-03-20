@@ -36,7 +36,6 @@ export class ChatroomWindowComponent
   ) {
     this.subscriptions.push(
       this.chatroomService.selectedChatroom.subscribe(chatroom => {
-        console.log(chatroom);
         this.chatroom = chatroom;
         this.loadingService.isLoading.next(false);
       })
@@ -60,16 +59,19 @@ export class ChatroomWindowComponent
     );
   }
 
+  // provides scrolling for the messages
   private scrollToBottom(): void {
     try {
       this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
     } catch (error) {}
   }
 
+  // forces the chat to be scrolled to bootom
   ngAfterViewChecked() {
     this.scrollToBottom();
   }
 
+  // gets the infromation from the  listcomponent about the selected chatroom
   ngOnChanges(changes: SimpleChanges) {
     console.log(changes);
     this.chatroomService.changeChatroom.next(changes.chatroomID.currentValue);

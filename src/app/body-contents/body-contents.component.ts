@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './body-contents.component.html',
   styleUrls: ['./body-contents.component.scss']
 })
+
+// wrapper component
 export class BodyContentsComponent implements OnInit {
 
   constructor() { }

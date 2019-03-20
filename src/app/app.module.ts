@@ -47,7 +47,6 @@ import { BodyContentsComponent } from './body-contents/body-contents.component';
 import { PeoplesComponent } from './body-contents/peoples/peoples.component';
 import { AddTaskComponent } from './body-contents/add-task/add-task.component';
 import { BoardComponent } from './body-contents/board/board.component';
-import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 
 
@@ -84,7 +83,6 @@ export const metaReducers: MetaReducer<any>[] = [];
     PeoplesComponent,
     AddTaskComponent,
     BoardComponent,
-    HeaderComponent,
     FooterComponent,
     BacklogComponent,
     UserListComponent
